@@ -1,28 +1,31 @@
-const production = process.env.NODE_ENV === "production";
+const production = process.env.NODE_ENV === 'production'
 
 function babelOptions() {
   return {
-    plugins: production ? ["transform-remove-console"] : [],
-  };
+    plugins: production ? ['transform-remove-console'] : [],
+  }
 }
 
 module.exports = {
   mount: {
-    public: "/",
-    src: "/_dist_",
+    public: '/',
+    src: '/_dist_',
   },
   plugins: [
-    "@snowpack/plugin-svelte",
+    '@snowpack/plugin-svelte',
     [
-      "@snowpack/plugin-babel",
+      '@snowpack/plugin-babel',
       {
         transformOptions: babelOptions(),
       },
     ],
-    "@snowpack/plugin-dotenv",
-    "@snowpack/plugin-optimize",
+    '@snowpack/plugin-dotenv',
+    '@snowpack/plugin-optimize',
   ],
   alias: {
-    "~": "./src",
+    '~': './src',
   },
-};
+  devOptions: {
+    port: 8079,
+  },
+}
