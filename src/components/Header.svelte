@@ -1,25 +1,25 @@
 <script>
-  import { link } from "svelte-spa-router";
-  import active from "svelte-spa-router/active";
-  import Logo from "~/components/Logo.svelte";
+  import { link, push } from 'svelte-spa-router'
+  import active from 'svelte-spa-router/active'
+  import Logo from '~/components/Logo.svelte'
 
   const menus = [
     {
-      href: "/",
-      name: "검색",
-      path: "/",
+      href: '/',
+      name: '검색',
+      path: '/',
     },
     {
-      href: "/movie/tt4520988",
-      name: "영화",
-      path: "/movie/*",
+      href: '/movie/tt4520988',
+      name: '영화',
+      path: '/movie/*',
     },
     {
-      href: "/about",
-      name: "어바웃",
-      path: "/about",
+      href: '/about',
+      name: '어바웃',
+      path: /^\/about/,
     },
-  ];
+  ]
 </script>
 
 <header>
@@ -33,7 +33,13 @@
       {/each}
     </ul>
   </nav>
-  <div class="user">
+  <div
+    class="user"
+    on:click={(event) => {
+      console.log(event)
+      push('/about?name=Netlify&email=hello@netlify.com&image=%2Fassets%2Fnetlify.png')
+    }}
+  >
     <img src="/assets/svelte.png" alt="User" />
   </div>
 </header>
@@ -47,8 +53,14 @@
     z-index: 9;
     display: flex;
     align-items: flex-end;
+    @media #{$mobile} {
+      padding: 14px 20px;
+    }
     nav {
       margin-left: 40px;
+      @media #{$mobile} {
+        display: none;
+      }
       ul {
         display: flex;
         li {
@@ -78,6 +90,10 @@
       bottom: 0;
       right: 40px;
       margin: auto;
+      transition: 0.4s;
+      @media #{$mobile} {
+        right: 20px;
+      }
       &:hover {
         background-color: lighten($color--area, 20%);
       }
